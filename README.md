@@ -23,7 +23,8 @@ $$
 y = \mathcal{P}(Ax)
 $$
 
-where $A$ is a linear operator and $\mathcal{P}$ is a stochastic process modelling the noise 
+where $x$ is the image that we want to recover, $y$ are the observed measurements,
+$A$ is a linear operator and $\mathcal{P}$ is a stochastic process modelling the noise 
 (e.g., the addition of Gaussian or Poisson noise). For a reconstruction network $\hat{x}(y)$ with input measurement $y$, the method generates new samples as
 
 $$
