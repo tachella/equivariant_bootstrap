@@ -36,7 +36,7 @@ confidence intervals of the MSE and/or pixel-wise variants (or any other statist
 
 # Getting Started
 1. Clone the repository
-2. Install the latest version of deepinv if you don't have it already
+2. Install the latest version of [deepinv](https://deepinv.github.io/) if you don't have it already
 ```
 pip install git+https://github.com/deepinv/deepinv.git#egg=deepinv
 ```
