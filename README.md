@@ -31,7 +31,7 @@ x^{(i)} = T_g^{-1}\hat{x}\left(\mathcal{P}(AT_g\hat{x}(y))\right)
 $$
 
 where $T_g$ is a group transformation (e.g., rotation, translation, etc.). These samples are then used to compute 
-confidence intervals of the MSE and/or pixel-wise variants (or any other statistic of interest).
+confidence intervals of the MSE and/or pixel-wise variants (or any other statistic of interest). Check the paper for more details!
 
 # Getting Started
 1. Clone the repository
@@ -55,6 +55,11 @@ The following figure shows the coverage of the proposed method (Equivariant Boot
 
 The following table shows the average test PSNR of the proposed method (Equivariant Bootstrap) and the other competing methods:
 
+|                        |       DDRM      |      DiffPIR     |        ULA       |     Proposed self-sup.    |       Proposed sup.      |
+|------------------------|:---------------:|:----------------:|:----------------:|:-------------------------:|:------------------------:|
+| C. Sensing (MNIST)     |         -       |         -        | $28.54\pm 2.25$  | $\mathbf{34.11 \pm 2.09}$ | $33.9 \pm 2.32$          |
+| Inpainting (DIV2K)     | $32.27\pm 3.95$ |  $30.51\pm 3.74$ | $30.52 \pm 3.35$ | $31.56 \pm 4.12$          | $\mathbf{32.47\pm 3.87}$ |
+| Tomography (LIDC-IDRI) |        -        | $37.02 \pm 0.79$ | $35.85 \pm 0.54$ | $37.38 \pm 0.65$          | $\mathbf{41.03\pm 0.91}$ |
 
 # Citation
 ```
