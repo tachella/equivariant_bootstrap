@@ -24,12 +24,10 @@ y = \mathcal{P}(Ax)
 $$
 
 where $A$ is a linear operator and $\mathcal{P}$ is a stochastic process modelling the noise 
-(e.g., the addition of Gaussian or Poisson noise)
-
-For a reconstruction network $\hat{x}(y)$ with input measurement $y$, the method generates new samples as
+(e.g., the addition of Gaussian or Poisson noise). For a reconstruction network $\hat{x}(y)$ with input measurement $y$, the method generates new samples as
 
 $$
-x^{(i)} = T_g^{-1}\hat{y}\left(P(AT_g\hat{x}(y + \epsilon^{(i)}))\right)
+x^{(i)} = T_g^{-1}\hat{x}\left(\mathcal{P}(AT_g\hat{x}(y))\right)
 $$
 
 where $T_g$ is a group transformation (e.g., rotation, translation, etc.). These samples are then used to compute 
