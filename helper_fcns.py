@@ -4,7 +4,8 @@ import numpy as np
 from torchvision.transforms.functional import rotate
 from tqdm import tqdm
 import torch.nn as nn
-
+from huggingface_hub import hf_hub_download
+import os
 
 def mse(a, b):
     return (a - b).pow(2).reshape(a.shape[0], -1).mean(dim=1).detach().cpu().numpy()
@@ -125,10 +126,24 @@ def bootstrap(x, y, physics, model, MC, max_angle, max_shift, flip=True, verbose
 
     return xhat, bstrap_mse, xvar
 
+def download_model(path):
+    if not os.path.exists(path):
+        save_dir2 = './datasets/'
+        hf_hub_download(repo_id="jtachella/equivariant_bootstrap", filename=path,
+                        cache_dir=save_dir2, local_dir=save_dir2)
 
 def choose_problem(problem, supervised=True, train=False):
     # choose training losses
     device = dinv.utils.get_freer_gpu()
+    save_dir = f'./datasets/{problem}'
+    torch.manual_seed(0)
+
+    if not os.path.exists(f'{save_dir}/dinv_dataset0.h5'):  # download dataset
+        save_dir2 = './datasets/'
+        hf_hub_download(repo_id="jtachella/equivariant_bootstrap", filename=f'{problem}/dinv_dataset0.h5',
+                        cache_dir=save_dir2, local_dir=save_dir2)
+        hf_hub_download(repo_id="jtachella/equivariant_bootstrap", filename=f'{problem}/physics0.pt',
+                        cache_dir=save_dir2, local_dir=save_dir2)
 
     if problem == 'Tomography':
         sigma = .1
@@ -151,6 +166,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/sup/ckp.pth.tar'
+                download_model(f'{problem}/sup/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -164,6 +180,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/rei/ckp.pth.tar' #
+                download_model(f'{problem}/rei/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -171,10 +188,8 @@ def choose_problem(problem, supervised=True, train=False):
 
     elif problem == 'Inpainting_div2k':
         sigma = .05
-        save_dir = f'./datasets/{problem}'
 
         # defined physics
-        torch.manual_seed(0)
         physics = dinv.physics.Inpainting(mask=.5, tensor_size=(3, 256, 256), device=device,
                                           noise_model=dinv.physics.GaussianNoise(sigma=sigma))
 
@@ -202,6 +217,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/sup/ckp.pth.tar'
+                download_model(f'{problem}/sup/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -212,6 +228,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/rei/ckp.pth.tar'
+                download_model(f'{problem}/rei/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -219,10 +236,8 @@ def choose_problem(problem, supervised=True, train=False):
 
     elif problem == 'CS_MNIST':
         sigma = .05
-        save_dir = f'./datasets/{problem}'
 
         # defined physics
-        torch.manual_seed(0)
         physics = dinv.physics.CompressedSensing(img_shape=(1, 28, 28), m=256, device=device,
                                           noise_model=dinv.physics.GaussianNoise(sigma=sigma))
 
@@ -250,6 +265,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/sup/ckp.pth.tar'
+                download_model(f'{problem}/sup/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -259,6 +275,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/rei/ckp.pth.tar'
+                download_model(f'{problem}/rei/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 
@@ -266,10 +283,8 @@ def choose_problem(problem, supervised=True, train=False):
 
     elif problem == 'Deblur_MNIST':
         sigma = .05
-        save_dir = f'./datasets/{problem}'
 
         # defined physics
-        torch.manual_seed(0)
         kernel = torch.zeros((1, 1, 7, 7), device=device)
         kernel[0, 0, :, 3] = 1/7
         physics = dinv.physics.BlurFFT(img_size=(1, 28, 28), filter=kernel,
@@ -298,6 +313,7 @@ def choose_problem(problem, supervised=True, train=False):
 
             if not train:
                 ckp_path = f'{save_dir}/sup/ckp.pth.tar'
+                download_model(f'{problem}/sup/ckp.pth.tar')
                 model.load_state_dict(torch.load(ckp_path, map_location=device)['state_dict'])
                 model.eval()
 

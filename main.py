@@ -21,6 +21,7 @@ with torch.no_grad():
     num_workers = 4  # set to 0 if using small cpu, else 4
     dataloader = DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
+    # hyperparameters to calibrate the bootstrap
     if algo == 'bstrap_unsup':
         max_shift = {'Tomography': 5, 'Inpainting_div2k': 10, 'CS_MNIST': 3}[problem]
         max_angle = {'Tomography': 10, 'Inpainting_div2k': 5, 'CS_MNIST': 4}[problem]
@@ -99,12 +100,6 @@ with torch.no_grad():
 
     print(f'Average PSNR: {np.mean(true_psnr)}')
     print(f'Average error PSNR: {np.mean(average_psnr-true_psnr)}')
-
-    plt.figure()
-    plt.hist(average_psnr, bins=100, color='b', alpha=.5, density=True)
-    plt.hist(true_psnr, bins=100, color='r', alpha=.5, density=True)
-    plt.legend(['Estimated', 'True'])
-    plt.show()
 
     percentiles = np.linspace(0.1, .99, 100)
     distance = np.sort(estimated_mse, axis=0)
