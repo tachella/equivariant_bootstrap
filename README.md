@@ -30,7 +30,7 @@ $$
 x^{(i)} = T_g^{-1}\hat{x}\left(\mathcal{P}(AT_g\hat{x}(y))\right)
 $$
 
-where $T_g$ is a group transformation (e.g., rotation, translation, etc.). These samples are then used to compute 
+for $i=1,\dots,N$ where $T_g$ is a group transformation (e.g., rotation, translation, etc.). These samples are then used to compute 
 confidence intervals of the MSE and/or pixel-wise variants (or any other statistic of interest). Check the paper for more details!
 
 # Getting Started
