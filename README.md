@@ -2,7 +2,9 @@
 
 Code of the paper
 ["Learning to reconstruct signals from binary measurements alone"](https://arxiv.org/abs/2303.08691) by [Julian Tachella](https://tachella.github.io/)
-and [Marcelo Pereyra](https://www.macs.hw.ac.uk/~mp71/about.html).
+and [Marcelo Pereyra](https://www.macs.hw.ac.uk/~mp71/about.html), 
+
+AISTATS 2024, **oral presentation**.
 
 We use the [deepinv library](https://deepinv.github.io/deepinv/)
 for most of the code.
