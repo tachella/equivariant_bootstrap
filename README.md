@@ -1,7 +1,7 @@
 # Equivariant Bootstrapping for Uncertainty Quantification in Imaging Inverse Problems
 
 Code of the paper
-["Learning to reconstruct signals from binary measurements alone"](https://arxiv.org/abs/2303.08691) by [Julian Tachella](https://tachella.github.io/)
+["Learning to reconstruct signals from binary measurements alone"](https://arxiv.org/abs/2310.11838) by [Julian Tachella](https://tachella.github.io/)
 and [Marcelo Pereyra](https://www.macs.hw.ac.uk/~mp71/about.html), 
 
 AISTATS 2024, **oral presentation**.
